@@ -4,10 +4,81 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Game2048.Views.Pages"
+      xmlns:vm="clr-namespace:Game2048.ViewModels"
+      xmlns:conv="clr-namespace:Game2048.Infrastructure.Converters"
       mc:Ignorable="d" 
       >
+    <Page.DataContext>
+        <vm:GameViewModel/>
+    </Page.DataContext>
 
-    <Grid>
+    <Page.Resources>
+
+        <conv:IntArrayToObservableCollectionConverter x:Key="IntArrayToObservableCollectionConverter"></conv:IntArrayToObservableCollectionConverter>
+        <conv:ValueToColorConverter x:Key="ValueToColorConverter"></conv:ValueToColorConverter>
+
+        <DataTemplate x:Key="CellTemplate">
+            <Border Style="{StaticResource CellBorderStyle}"  Background="{Binding Converter={StaticResource ValueToColorConverter}}">
+                <TextBlock Text="{Binding}" Style="{StaticResource CellLabelStyle}" TextAlignment="Center" />
+            </Border>
+        </DataTemplate>
         
+        <DataTemplate x:Key="BoardTemplate">
+            <ItemsControl ItemsSource="{Binding}"  ItemTemplate="{DynamicResource CellTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+        
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.0*"></ColumnDefinition>
+                <ColumnDefinition Width="1.0*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Button Style="{StaticResource SmallButtonStyle}" Grid.Row="1" Grid.Column="0"
+                    Command="{Binding NavigateToMenuPageCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}">
+                <TextBlock Style="{StaticResource SmallButtonTextStyle}" Text="Menu"></TextBlock>
+            </Button>
+
+            <Button Style="{StaticResource SmallButtonStyle}" Grid.Row="1" Grid.Column="1"
+                    Command="{Binding ResetCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}">
+                <TextBlock Style="{StaticResource SmallButtonTextStyle}" Text="Reset"></TextBlock>
+            </Button>
+
+            <Border Style="{StaticResource InfoTabStyle}" Grid.Row="1" Grid.Column="3">
+                <TextBlock Style="{StaticResource InfoTabLabelStyle}" Text="{Binding Score, StringFormat='Score: {0}'}"></TextBlock>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource BoardBorderStyle}">
+            <ItemsControl ItemsSource="{Binding Board, Converter={StaticResource IntArrayToObservableCollectionConverter}}"  ItemTemplate="{DynamicResource BoardTemplate}" />
+        </Border>
     </Grid>
 </Page>

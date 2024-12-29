@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <!-- Menu Colors -->
+
+    <SolidColorBrush x:Key="MenuBackgroudColor" Color="DarkCyan"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuLabelBrush" Color="DarkRed"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuButtonBackgroundColor" Color="DarkGray" ></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuHoveredButtonBackgroundColor" Color="LightYellow" ></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuSelectedButtonBackgroundColor" Color="Gold" ></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuButtonTextColor" Color="OliveDrab" ></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuButtonBorderColor" Color="DarkGreen" ></SolidColorBrush>
+
+    <SolidColorBrush x:Key="TextColor" Color="#403F13" ></SolidColorBrush>
+    <SolidColorBrush x:Key="SmallButtonTextColor" Color="#382815" ></SolidColorBrush>
+    
+    <!-- Cell Colors -->
+    
+    <SolidColorBrush x:Key="CellBackgroundColor" Color="#B5A776" ></SolidColorBrush>
+    <SolidColorBrush x:Key="CellTextColor" Color="#403F13" ></SolidColorBrush>
+    <SolidColorBrush x:Key="BoardBackgroundColor" Color="#F0C18A" ></SolidColorBrush>
+    <SolidColorBrush x:Key="CellBackgroundColor2" Color="#121212" ></SolidColorBrush>
+    
+</ResourceDictionary>
