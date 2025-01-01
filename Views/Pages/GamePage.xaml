@@ -78,7 +78,7 @@
         </Grid>
 
         <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource BoardBorderStyle}">
-            <ItemsControl ItemsSource="{Binding Board, Converter={StaticResource IntArrayToObservableCollectionConverter}}"  ItemTemplate="{DynamicResource BoardTemplate}" />
+            <ItemsControl ItemsSource="{Binding BoardGrid, Converter={StaticResource IntArrayToObservableCollectionConverter}}"  ItemTemplate="{DynamicResource BoardTemplate}" />
         </Border>
     </Grid>
 </Page>

@@ -1,11 +1,6 @@
 ﻿using Game2048.Infrastructure.Commands;
 using Game2048.Models;
 using Game2048.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Game2048.ViewModels
@@ -14,22 +9,23 @@ namespace Game2048.ViewModels
     {
         #region Fields
         
-        private GameBoard _gameBoard;
-        private Random _random;
-        private readonly int _probabilityOfFour = 90;
-        private readonly int maxIter = 5000;
-
+        private readonly Game _game;
+        private int[,] _boardGrid;
+        private int _score;
         #endregion
 
         #region Properties
-        public int[,] Board { get => _gameBoard.Board; set=> Set(ref _gameBoard.board, value); }
 
-        public int Score {  get => _gameBoard.Score; set => Set(ref _gameBoard.score, value); }
+        public int[,] BoardGrid { get => _boardGrid; set=> Set(ref _boardGrid, value); }
+
+        public int Score { get => _score; set => Set(ref _score, value); 
+        }
         #endregion
 
         #region Contructors
         public GameViewModel()
         {
+            _game = new Game();
             Init();
         }
         #endregion
@@ -51,41 +47,43 @@ namespace Game2048.ViewModels
 
         private void Init()
         {
-            _gameBoard = new GameBoard();
-            _random = new Random();
             Reset();
         }
         private void Reset()
         {
-            Board = new int[_gameBoard.BoardSize, _gameBoard.BoardSize];
-            SetTileOnRandomPosition();
-            SetTileOnRandomPosition();
+            _game.Reset();
             Update();
-        }
-
-        private void SetTileOnRandomPosition()
-        {
-            int row, col;
-            
-            int iter = 0;
-            do
-            {
-                row = _random.Next(_gameBoard.BoardSize);
-                col = _random.Next(_gameBoard.BoardSize);
-            } while (_gameBoard.board[row, col] != 0 && iter++ < maxIter);
-
-            _gameBoard.board[row, col] = GenerateRandomTileValue();
-        }
-
-        private int GenerateRandomTileValue()
-        {
-            return _random.Next(100) < _probabilityOfFour ? 2 : 4;
         }
 
         private void Update()
         {
-            Board = _gameBoard.board;
-            Score = _gameBoard.score;
+            BoardGrid = _game.Board.Grid;
+            Score = _game.Score;
+        }
+
+        private void CheckGameStatus()
+        {
+            Game.GameStatus status =  _game.Status;
+        }
+
+        public void SlideLeft()
+        {
+            _game.SlideLeft();
+        }
+
+        public void SlideRight()
+        {
+            _game.SlideRight();
+        }
+
+        public void SlideUp()
+        {
+            _game.SlideUp();
+        }
+
+        public void SlideDown()
+        {
+            _game.SlideUp();
         }
 
         #endregion Methods
