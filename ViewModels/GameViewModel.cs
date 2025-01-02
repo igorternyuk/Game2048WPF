@@ -206,7 +206,7 @@ namespace Game2048.ViewModels
 
         public void SlideDown()
         {
-            _game.SlideUp();
+            _game.SlideDown();
             Update();
         }
 

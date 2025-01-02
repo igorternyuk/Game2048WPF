@@ -17,7 +17,6 @@ namespace Game2048.Models
         #region Properties
         public int Size { get; }
         public int[,] Grid { get => grid; }
-        public int MaxValue { get => maxValue; }
         public int Score { get => score; }
         #endregion
 
@@ -59,20 +58,42 @@ namespace Game2048.Models
         {
             for (int r = 0; r < grid.GetLength(0); ++r)
             {
-                int index = 0;
-                while (index < grid.GetLength(1))
+                // Combine
+
+                for (int c = 0; c < grid.GetLength(1); ++c)
                 {
-                    for (int c = index + 1; c < grid.GetLength(1); ++c)
+                    if (grid[r, c] == 0)
+                        continue;
+
+                    int index = c + 1;
+                    while (index < grid.GetLength(1) && grid[r, index] == 0)
+                        ++index;
+
+                    if (index < grid.GetLength(1) && grid[r, index] == grid[r, c]) //grid[r, index] == grid[r, c]
                     {
-                        if (grid[r, c] != 0 && grid[r, c] == grid[r, index])
-                        {
-                            grid[r, index] *= 2;
-                            grid[r, c] = 0;
-                            score += grid[r, index];
-                            ++index;
-                        }
+                        grid[r, c] *= 2;
+                        grid[r, index] = 0;
+                        score += grid[r, c];
                     }
-                    ++index;
+                }
+
+                //Slide
+
+                for (int c = 0; c < grid.GetLength(1); ++c)
+                {
+                    int index = c;
+
+                    while (index < grid.GetLength(1) && grid[r, index] == 0)
+                        ++index;
+
+                    if (index >= grid.GetLength(1))
+                        break;
+
+                    if(c != index)
+                    {
+                        grid[r, c] = grid[r, index];
+                        grid[r, index] = 0;
+                    }
                 }
             }
         }
@@ -99,16 +120,16 @@ namespace Game2048.Models
             RotateCounterClockwise();
         }
 
-        private void RotateClockwise()
-        {
-            Transpose();
-            InverseRows();
-        }
-
         private void RotateCounterClockwise()
         {
             Transpose();
             InverseColumns();
+        }
+
+        private void RotateClockwise()
+        {
+            Transpose();
+            InverseRows();
         }
         private void InverseRows()
         {
@@ -129,12 +150,11 @@ namespace Game2048.Models
             var len0 = grid.GetLength(0);
             for (int r = 0; r < len0 / 2; r++)
             {
-                var len1 = grid.GetLength(1);
-                for (int c = 0; c < len1; c++)
+                for (int c = 0; c < grid.GetLength(1); c++)
                 {
                     int buf = grid[r, c];
                     grid[r, c] = grid[len0 - 1 - r, c];
-                    grid[len0 - 1 - r, c] = grid[r, c];
+                    grid[len0 - 1 - r, c] = buf;
                 }
             }
         }
@@ -143,12 +163,9 @@ namespace Game2048.Models
         {
             for(int r = 1; r < grid.GetLength(0); ++r)
             {
-                for(int c = r; c < grid.GetLength(1) - 1; c++)
+                for(int c = 0; c < r; c++)
                 {
-                    int buf = grid[r, c];
-                    grid[r, c] = grid[c, r];
-                    grid[c, r] = buf;
-                    //(grid[r, c], grid[c, r]) = (grid[c, r], grid[r, c]);
+                    (grid[r, c], grid[c, r]) = (grid[c, r], grid[r, c]);
                 }
             }
         }
