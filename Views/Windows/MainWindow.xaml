@@ -8,4 +8,11 @@
         Title="Game2048" Height="500" Width="500" MinHeight="500" MinWidth="500"
         Background="{StaticResource MenuBackgroudColor}">
     <Frame Source="../Pages/MainMenuPage.xaml" NavigationUIVisibility="Hidden"></Frame>
+
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{Binding CloseApplicationCommand}" />
+    </Window.InputBindings>
+    
 </Window>
+
+

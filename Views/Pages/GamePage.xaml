@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Game2048.Views.Pages"
       xmlns:vm="clr-namespace:Game2048.ViewModels"
       xmlns:conv="clr-namespace:Game2048.Infrastructure.Converters"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
+      Focusable="True"
       >
     <Page.DataContext>
         <vm:GameViewModel/>
@@ -34,6 +35,15 @@
         </DataTemplate>
         
     </Page.Resources>
+
+    <Page.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{Binding ShutdownCommand}" />
+        <KeyBinding Key="Left" Command="{Binding SlideLeftCommand}"/>
+        <KeyBinding Key="Right" Command="{Binding SlideRightCommand}"/>
+        <KeyBinding Key="Up" Command="{Binding SlideUpCommand}"/>
+        <KeyBinding Key="Down" Command="{Binding SlideDownCommand}"/>
+        <KeyBinding Key="Space" Command="{Binding NewGameCommand}"/>
+    </Page.InputBindings>
     
     <Grid>
         <Grid.RowDefinitions>

@@ -42,28 +42,45 @@ namespace Game2048.Models
         public Game(int boardSize = BoardSizeDefault)
         {
             BoardSize = boardSize;
-            Init();
+            _random = new Random();
+            Board = new Board(BoardSize);
+            Reset();
         }
         #endregion
 
         #region Methods
 
-        public bool IsOver()
+        public bool IsPlaying()
+        {
+            if (!IsLoss() && !IsOver())
+                return true;
+            return false;
+        }
+
+        public bool IsLoss()
         {
             if (Status == GameStatus.LOSS)
                 return true;
             return false;
         }
 
-        private void Init()
+        public bool IsWinScoreReached()
         {
-            _random = new Random();
-            Board = new Board(BoardSize);
-            Reset();
+            if (Status == GameStatus.REACHED2048)
+                return true;
+            return false;
+        }
+
+        public bool IsOver()
+        {
+            if (IsLoss() && IsWinScoreReached())
+                return true;
+            return false;
         }
 
         public void Reset()
         {
+            Status = GameStatus.PLAY;
             Board.Reset();
             SetTileOnRandomPosition();
             SetTileOnRandomPosition();
@@ -78,8 +95,8 @@ namespace Game2048.Models
                 row = _random.Next(Board.Size);
                 col = _random.Next(Board.Size);
             } while (Board.Grid[row, col] != 0 && iter++ < maxIter);
-
-            Board.Grid[row, col] = GenerateRandomTileValue();
+            int randomValue = GenerateRandomTileValue();
+            Board.Grid[row, col] = randomValue;
         }
 
         private int GenerateRandomTileValue()
@@ -87,9 +104,18 @@ namespace Game2048.Models
             return _random.Next(100) < _probabilityOfFour ? 2 : 4;
         }
 
+        private void Update()
+        {
+            UpdateScore();
+            UpdateStatus();
+            if (IsPlaying())
+                SetTileOnRandomPosition();
+            UpdateStatus();
+        }
+
         private void UpdateScore()
         {
-            Score = Board.MaxValue;
+            Score = Board.Score;
         }
 
         private void UpdateStatus()
@@ -107,8 +133,7 @@ namespace Game2048.Models
             if (IsOver()) 
                 return;
             Board.SlideLeft();
-            UpdateScore();
-            UpdateStatus();
+            Update();
         }
 
         public void SlideRight()
@@ -116,8 +141,7 @@ namespace Game2048.Models
             if (IsOver())
                 return;
             Board.SlideRight();
-            UpdateScore();
-            UpdateStatus();
+            Update();
         }
 
         public void SlideUp()
@@ -125,8 +149,7 @@ namespace Game2048.Models
             if (IsOver())
                 return;
             Board.SlideUp();
-            UpdateScore();
-            UpdateStatus();
+            Update();
         }
 
         public void SlideDown()
@@ -134,8 +157,7 @@ namespace Game2048.Models
             if (IsOver())
                 return;
             Board.SlideDown();
-            UpdateScore();
-            UpdateStatus();
+            Update();
         }
         #endregion
     }

@@ -16,19 +16,13 @@ using System.Windows.Shapes;
 namespace Game2048.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for GamePage.xaml
+    /// Interaction logic for Statistics.xaml
     /// </summary>
-    public partial class GamePage : Page
+    public partial class Statistics : Page
     {
-        public GamePage()
+        public Statistics()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_Loaded;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            Focus();
         }
     }
 }

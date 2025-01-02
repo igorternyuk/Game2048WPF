@@ -11,13 +11,14 @@ namespace Game2048.Models
     {
         #region Fields
         public readonly int[,] grid;
-        private int maxValue = 0;
+        private int score = 0;
         #endregion
 
         #region Properties
         public int Size { get; }
         public int[,] Grid { get => grid; }
         public int MaxValue { get => maxValue; }
+        public int Score { get => score; }
         #endregion
 
         #region Constructors
@@ -32,7 +33,6 @@ namespace Game2048.Models
         #region Methods
         public void Reset()
         {
-            maxValue = 0;
             for (int r = 0; r < grid.GetLength(0); ++r)
             {
                 for (int c = 0; c < grid.GetLength(1); ++c)
@@ -68,6 +68,7 @@ namespace Game2048.Models
                         {
                             grid[r, index] *= 2;
                             grid[r, c] = 0;
+                            score += grid[r, index];
                             ++index;
                         }
                     }

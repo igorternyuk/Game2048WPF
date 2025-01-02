@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Windows;
 
 namespace Game2048.ViewModels.Base
 {
@@ -31,6 +32,11 @@ namespace Game2048.ViewModels.Base
         protected static void NavigateToPage(Page page, Uri uri)
         {
             NavigationService.GetNavigationService(page).Navigate(uri);
+        }
+
+        protected static void Quit()
+        {
+            Application.Current.Shutdown();
         }
     }
 }
