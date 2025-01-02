@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Game2048.Models
 {
@@ -15,7 +16,7 @@ namespace Game2048.Models
         
         public const int BoardSizeDefault = 4;
         public readonly int BoardSize;
-        public const int WinValue = 2048;
+        public const int WinValue = 128;
         
         private const int _probabilityOfFour = 90;
         private const int maxIter = 5000;
@@ -25,9 +26,10 @@ namespace Game2048.Models
 
         public enum GameStatus
         {
-            PLAY,
-            REACHED2048,
-            LOSS
+            Play,
+            Reached2048,
+            Loss,
+            GameOver,
         }
 
         #region Properties
@@ -36,6 +38,10 @@ namespace Game2048.Models
         public Board Board { get; set; }
 
         public int Score { get; set; }
+
+        public int CurrentMaxTileValue { get; set;  }
+
+        public bool ContinuePlayingAfter2048 { get; set; }
         #endregion
 
         #region Constructors
@@ -52,41 +58,44 @@ namespace Game2048.Models
 
         public bool IsPlaying()
         {
-            if (!IsLoss() && !IsOver())
+            if (Status == GameStatus.Play)
                 return true;
             return false;
         }
 
         public bool IsLoss()
         {
-            if (Status == GameStatus.LOSS)
+            if (Status == GameStatus.Loss)
                 return true;
             return false;
         }
 
         public bool IsWinScoreReached()
         {
-            if (Status == GameStatus.REACHED2048)
+            if (Status == GameStatus.Reached2048)
                 return true;
             return false;
         }
 
         public bool IsOver()
         {
-            if (IsLoss() && IsWinScoreReached())
+            if (Status == GameStatus.GameOver)
                 return true;
             return false;
         }
 
         public void Reset()
         {
-            Status = GameStatus.PLAY;
+            Status = GameStatus.Play;
+            Score = 0;
+            ContinuePlayingAfter2048 = false;
             Board.Reset();
             SetTileOnRandomPosition();
             SetTileOnRandomPosition();
+            CurrentMaxTileValue = Board.CurrentMaxTileValue;
         }
 
-        private void SetTileOnRandomPosition()
+        public void SetTileOnRandomPosition()
         {
             int row, col;
             int iter = 0;
@@ -97,6 +106,7 @@ namespace Game2048.Models
             } while (Board.Grid[row, col] != 0 && iter++ < maxIter);
             int randomValue = GenerateRandomTileValue();
             Board.Grid[row, col] = randomValue;
+            Board.CurrentMaxTileValue = Math.Max(randomValue, Board.CurrentMaxTileValue);
         }
 
         private int GenerateRandomTileValue()
@@ -107,6 +117,7 @@ namespace Game2048.Models
         private void Update()
         {
             UpdateScore();
+            UpdateCurrentMaxTileValue();
             UpdateStatus();
             if (IsPlaying())
                 SetTileOnRandomPosition();
@@ -117,20 +128,26 @@ namespace Game2048.Models
         {
             Score = Board.Score;
         }
+        private void UpdateCurrentMaxTileValue()
+        {
+            CurrentMaxTileValue = Board.CurrentMaxTileValue;
+        }
 
         private void UpdateStatus()
         {
             if (!Board.CanSlide())
-                Status = GameStatus.LOSS;
-            else if (Score < WinValue)
-                Status = GameStatus.PLAY;
+            {
+                Status = CurrentMaxTileValue < WinValue ? GameStatus.Loss : GameStatus.GameOver;
+            }
+            else if (CurrentMaxTileValue < WinValue)
+                Status = GameStatus.Play;
             else
-                Status = GameStatus.REACHED2048;
+                Status = ContinuePlayingAfter2048 ? GameStatus.Play : GameStatus.Reached2048;
         }
 
         public void SlideLeft()
         {
-            if (IsOver()) 
+            if (!IsPlaying())
                 return;
             Board.SlideLeft();
             Update();
@@ -138,7 +155,7 @@ namespace Game2048.Models
 
         public void SlideRight()
         {
-            if (IsOver())
+            if (!IsPlaying())
                 return;
             Board.SlideRight();
             Update();
@@ -146,7 +163,7 @@ namespace Game2048.Models
 
         public void SlideUp()
         {
-            if (IsOver())
+            if (!IsPlaying())
                 return;
             Board.SlideUp();
             Update();
@@ -154,7 +171,7 @@ namespace Game2048.Models
 
         public void SlideDown()
         {
-            if (IsOver())
+            if (!IsPlaying())
                 return;
             Board.SlideDown();
             Update();

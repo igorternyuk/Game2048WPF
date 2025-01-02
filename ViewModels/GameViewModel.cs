@@ -4,6 +4,7 @@ using Game2048.ViewModels.Base;
 using Microsoft.VisualBasic;
 using System.Windows;
 using System.Windows.Input;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Game2048.ViewModels
 {
@@ -13,8 +14,9 @@ namespace Game2048.ViewModels
 
         private const string winMessage = "You won! Would you like to continue?";
         private const string lossMessage = "You lost! Would you like to save score to statistics?";
+        private const string gameOverMessage = "Game over! Would you like to save score to statistics?";
         private const string playAgainMessage = "Would you like to play again?";
-        private const string gameOverMessage = "Game over!";
+        private const string gameOverTitle = "Game over!";
         private const string congratulationsTitle = "Congratulations!";
         private const string youLostTitle = "You lost!";
         private const string playAgainTitle = "Play again?";
@@ -154,36 +156,58 @@ namespace Game2048.ViewModels
                 OnPropertyChanged(nameof(BoardGrid));
         }
 
-        private void CheckGameStatus()
+        private void PromptPlayAgain()
         {
-            if(_game.IsLoss())
+            MessageBoxResult result = MessageBox.Show(playAgainMessage, playAgainTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+                Reset();
+            else
+                OnShutdownCommandExecuted(null);
+        }
+
+        private void PromtLoss()
+        {
+            MessageBoxResult result = MessageBox.Show(lossMessage, youLostTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (result == MessageBoxResult.Yes)
+                SaveGameResultsToStatistics();
+            PromptPlayAgain();
+        }
+
+        private void PromptGameOver()
+        {
+            MessageBoxResult result = MessageBox.Show(lossMessage, gameOverTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (result == MessageBoxResult.Yes)
+                SaveGameResultsToStatistics();
+            PromptPlayAgain();
+        }
+
+        private void PromtWinScoreReached()
+        {
+            if (!_game.ContinuePlayingAfter2048)
             {
-                MessageBoxResult result =  MessageBox.Show(lossMessage, youLostTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
-                if (result == MessageBoxResult.Yes)
-                {
-                    SaveGameResultsToStatistics();
-                }
-
-                result = MessageBox.Show(playAgainMessage, playAgainTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+                MessageBoxResult result = MessageBox.Show(winMessage, congratulationsTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Reset();
+                    _game.ContinuePlayingAfter2048 = true;
+                    _game.Status = Game.GameStatus.Play;
                 }
                 else
                 {
-                    OnShutdownCommandExecuted(null);
+                    PromptPlayAgain();
                 }
             }
-            else if(_game.IsWinScoreReached())
-            {
-                MessageBoxResult  result = MessageBox.Show(winMessage, congratulationsTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+        }
 
-                if (result != MessageBoxResult.Yes)
-                {
-                    OnShutdownCommandExecuted(null);
-                }
-            }
+        private void CheckGameStatus()
+        {
+            if(_game.IsLoss())
+                PromtLoss();
+            else if (_game.IsOver())
+                PromptGameOver();
+            else if (_game.IsWinScoreReached())
+                PromtWinScoreReached();
         }
 
         public void SlideLeft()
