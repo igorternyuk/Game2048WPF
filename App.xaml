@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Resources/Styles/Info.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles/GamePage.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles/Statistics.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/Styles/Effects.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Dynamic resources -->

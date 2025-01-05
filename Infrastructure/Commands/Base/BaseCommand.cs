@@ -9,7 +9,7 @@ namespace Game2048.Infrastructure.Commands.Base
 {
     internal abstract class BaseCommand : ICommand
     {
-        public event EventHandler? CanExecuteChanged
+        public event EventHandler CanExecuteChanged
         {
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested -= value;

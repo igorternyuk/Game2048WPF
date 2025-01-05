@@ -23,8 +23,8 @@
     <SolidColorBrush x:Key="CellBackgroundColor2" Color="#121212" ></SolidColorBrush>
     
     <!-- Statistics -->
-    <SolidColorBrush x:Key="TableHeaderBackgroundColor" Color="#FF0E0E13" ></SolidColorBrush>
-    <SolidColorBrush x:Key="TableRowBackgroundColor" Color="#FF1E1E1F" ></SolidColorBrush>
-    <SolidColorBrush x:Key="TableRowBackgroundColor2" Color="#FF2C2C31" ></SolidColorBrush>
+    <SolidColorBrush x:Key="TableHeaderBackgroundColor" Color="RosyBrown" ></SolidColorBrush>
+    <SolidColorBrush x:Key="TableRowBackgroundColor" Color="#D7B661" ></SolidColorBrush>
+    <SolidColorBrush x:Key="TableRowBackgroundColor2" Color="#CBB16D" ></SolidColorBrush>
     
 </ResourceDictionary>

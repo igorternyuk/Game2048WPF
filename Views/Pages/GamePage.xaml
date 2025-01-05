@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Game2048.Views.Pages"
       xmlns:vm="clr-namespace:Game2048.ViewModels"
       xmlns:conv="clr-namespace:Game2048.Infrastructure.Converters"
+      xmlns:fa="http://schemas.fontawesome.com/icons/"
       mc:Ignorable="d"
       Focusable="True"
       >
@@ -69,17 +70,17 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
+
             <Button Style="{StaticResource SmallButtonStyle}" Grid.Row="1" Grid.Column="0"
                     Command="{Binding NavigateToMenuPageCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}">
-                <TextBlock Style="{StaticResource SmallButtonTextStyle}" Text="Menu"></TextBlock>
+                <fa:ImageAwesome x:Name="IconMenu" Height="12" Icon="Solid_Bars" Foreground="LemonChiffon" Margin="0,0,3,0"  Effect="{StaticResource ShadowDepth1}"></fa:ImageAwesome>
             </Button>
 
             <Button Style="{StaticResource SmallButtonStyle}" Grid.Row="1" Grid.Column="1"
-                    Command="{Binding ResetCommand}"
+                    Command="{Binding NewGameCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}">
-                <TextBlock Style="{StaticResource SmallButtonTextStyle}" Text="Reset"></TextBlock>
+                <fa:ImageAwesome x:Name="IconRestart" Height="12" Icon="Solid_Retweet" Foreground="LemonChiffon" Margin="0,0,3,0"  Effect="{StaticResource ShadowDepth1}"></fa:ImageAwesome>
             </Button>
 
             <Border Style="{StaticResource InfoTabStyle}" Grid.Row="1" Grid.Column="3">

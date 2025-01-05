@@ -56,7 +56,7 @@ namespace Game2048.ViewModels
 
         public ICommand NewGameCommand { get; }
 
-        private bool CanNewGameCommandExecute(object p) => _game.IsPlaying();
+        private bool CanNewGameCommandExecute(object p) => true;
 
         private void OnNewGameCommandExecuted(object p)
         {
@@ -99,15 +99,6 @@ namespace Game2048.ViewModels
         private void OnSlideDownCommandExecuted(object p)
         {
             SlideDown();
-        }
-
-        public ICommand ResetCommand { get; }
-
-        private bool CanResetCommandExecuted(object p) => true;
-
-        private void OnResetCommandExecuted(object p)
-        {
-            Reset();
         }
 
         public ICommand ShutdownCommand { get; }
