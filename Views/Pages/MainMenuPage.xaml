@@ -16,7 +16,9 @@
             <Button Content="Start" Style="{StaticResource MenuButtonStyle}"
                     Command="{Binding NavigateToGamePage}"
                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}"></Button>
-            <Button Content="Statistics" Style="{StaticResource MenuButtonStyle}"></Button>
+            <Button Content="Statistics" Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding NavigateToStatisticsPage}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}"></Button>
             <Button Content="Quit" Style="{StaticResource MenuButtonStyle}"></Button>
         </StackPanel>
 

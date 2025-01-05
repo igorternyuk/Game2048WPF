@@ -16,7 +16,7 @@ namespace Game2048.Models
         
         public const int BoardSizeDefault = 4;
         public readonly int BoardSize;
-        public const int WinValue = 128;
+        public const int WinValue = 64;
         
         private const int _probabilityOfFour = 90;
         private const int maxIter = 5000;
@@ -119,7 +119,7 @@ namespace Game2048.Models
             UpdateScore();
             UpdateCurrentMaxTileValue();
             UpdateStatus();
-            if (IsPlaying())
+            if (IsPlaying() && !Board.IsFull())
                 SetTileOnRandomPosition();
             UpdateStatus();
         }

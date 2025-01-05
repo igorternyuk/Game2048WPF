@@ -1,4 +1,5 @@
 ﻿using Game2048.Infrastructure.Commands;
+using Game2048.Infrastructure.Data;
 using Game2048.Models;
 using Game2048.ViewModels.Base;
 using Microsoft.VisualBasic;
@@ -14,9 +15,11 @@ namespace Game2048.ViewModels
 
         private const string winMessage = "You won! Would you like to continue?";
         private const string lossMessage = "You lost! Would you like to save score to statistics?";
+        private const string statisticsMessage = "Would you like to save score to statistics?";
         private const string gameOverMessage = "Game over! Would you like to save score to statistics?";
         private const string playAgainMessage = "Would you like to play again?";
         private const string gameOverTitle = "Game over!";
+        private const string addToStatisticsTitle = "Add to statistics?";
         private const string congratulationsTitle = "Congratulations!";
         private const string youLostTitle = "You lost!";
         private const string playAgainTitle = "Play again?";
@@ -195,6 +198,9 @@ namespace Game2048.ViewModels
                 }
                 else
                 {
+                    result = MessageBox.Show(statisticsMessage, addToStatisticsTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    if (result == MessageBoxResult.Yes)
+                        SaveGameResultsToStatistics();
                     PromptPlayAgain();
                 }
             }
@@ -243,12 +249,14 @@ namespace Game2048.ViewModels
                 ++iter;
                 name = Microsoft.VisualBasic.Interaction.InputBox("Input your name", "Name input", "");
             } while(string.IsNullOrEmpty(name) && iter < 100);
+            
             if(string.IsNullOrEmpty(name))
             {
-                MessageBox.Show("Name could not be empty! Try again please.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Name could not be empty! Try again please.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 name = "Noname";
             }
-            //Statistics.Add(name, Score.ToString())
+
+            Statistics.Add(name, Score.ToString());
         }
 
         #endregion Methods

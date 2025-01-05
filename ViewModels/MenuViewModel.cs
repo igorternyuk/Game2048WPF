@@ -11,7 +11,7 @@ namespace Game2048.ViewModels
     internal class MenuViewModel : ViewModel
     {
         public NavigationCommand NavigateToGamePage{ get => new(NavigateToPage, new Uri("Views/Pages/GamePage.xaml", UriKind.RelativeOrAbsolute)); }
-        public static NavigationCommand NavigateToStatisticsPage { get => new(NavigateToPage, new Uri("Views/Pages/Statistics.xaml"));}
+        public static NavigationCommand NavigateToStatisticsPage { get => new(NavigateToPage, new Uri("Views/Pages/Statistics.xaml", UriKind.RelativeOrAbsolute));}
 
         public static LambdaCommand QuitCommand { get => new LambdaCommand((object p) => { Quit(); }, (object p) => true); }
 

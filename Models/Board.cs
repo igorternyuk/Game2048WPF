@@ -47,13 +47,34 @@ namespace Game2048.Models
             }
         }
 
+        public bool IsFull()
+        {
+            for (int r = 0; r < grid.GetLength(0); ++r)
+            {
+                for (int c = 0; c < grid.GetLength(1); ++c)
+                {
+                    if (grid[r, c] == 0)
+                        return false;
+                }
+            }
+            return true;
+        }
+
         public bool CanSlide()
         {
             for (int r = 0; r < grid.GetLength(0); ++r)
             {
-                for (int c = 1; c < grid.GetLength(1); ++c)
+                for (int c = 0; c < grid.GetLength(1); ++c)
                 {
-                    if (grid[r, c] == 0 || grid[r, c] == grid[r, c - 1])
+                    if (grid[r, c] == 0)
+                        return true;
+                    if (c > 0 && grid[r, c] == grid[r, c - 1])
+                        return true;
+                    if (c < grid.GetLength(1) - 1 && grid[r, c] == grid[r, c + 1])
+                        return true;
+                    if (r > 0 && grid[r, c] == grid[r - 1, c])
+                        return true;
+                    if (r < grid.GetLength(1) - 1 && grid[r, c] == grid[r + 1, c])
                         return true;
                 }
             }

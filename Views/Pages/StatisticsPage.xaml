@@ -39,15 +39,32 @@
             <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource SmallButtonStyle}"
                     Command="{Binding NavigateToMenuPageCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}">
-                
             </Button>
-
-            <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MenuLabelStyle}" Content="Statistics"></Label>
-
-            <Border Grid.Row="1" Grid.Column="1">
-                
-            </Border>
-            
+            <Label Grid.Row="1" Grid.Column="1" Content="Statistics" Style="{StaticResource LabelStyle}"></Label>
         </Grid>
+
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource TableBoardBorderStyle}">
+            <DataGrid ItemsSource="{Binding StatisticsCollection}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Player" Binding="{Binding Name}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <StaticResource ResourceKey="StatisticsHeaderStyle"></StaticResource>
+                        </DataGridTextColumn.HeaderStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <StaticResource ResourceKey="StatisticsTableRowStyle"></StaticResource>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="*" Header="Best score" Binding="{Binding Score}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <StaticResource ResourceKey="StatisticsHeaderStyle"></StaticResource>
+                        </DataGridTextColumn.HeaderStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <StaticResource ResourceKey="StatisticsTableRowStyle"></StaticResource>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        
     </Grid>
 </Page>

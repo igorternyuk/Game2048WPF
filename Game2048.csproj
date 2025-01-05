@@ -8,4 +8,19 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Infrastructure\NewFolder1\**" />
+    <Compile Remove="Infrastructure\NewFolder2\**" />
+    <EmbeddedResource Remove="Infrastructure\NewFolder1\**" />
+    <EmbeddedResource Remove="Infrastructure\NewFolder2\**" />
+    <None Remove="Infrastructure\NewFolder1\**" />
+    <None Remove="Infrastructure\NewFolder2\**" />
+    <Page Remove="Infrastructure\NewFolder1\**" />
+    <Page Remove="Infrastructure\NewFolder2\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\DataTemplates\" />
+  </ItemGroup>
+
 </Project>

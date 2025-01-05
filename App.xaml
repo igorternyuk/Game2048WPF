@@ -10,89 +10,17 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles/Menu.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/Styles/Info.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/Styles/GamePage.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/Styles/Statistics.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Dynamic resources -->
             <sys:Double x:Key="CellSize">80</sys:Double>
+            <sys:Double x:Key="TableBorderWidth">400</sys:Double>
+            <sys:Double x:Key="TableBorderHeight">350</sys:Double>
 
-            <Style x:Key="SmallButtonStyle" TargetType="{x:Type Button}">
-                <Setter Property="Width" Value="40"></Setter>
-                <Setter Property="BorderThickness" Value="1"></Setter>
-                <Setter Property="Background" Value="OliveDrab"></Setter>
-                <Setter Property="Cursor" Value="Hand"></Setter>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Viewbox Width="{TemplateBinding Width}">
-                                <ContentPresenter Content="{TemplateBinding Content}"></ContentPresenter>
-                            </Viewbox>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Opacity" Value="0.8"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Opacity" Value="1.0"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="SmallButtonTextStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-                <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                <Setter Property="FontSize" Value="12"></Setter>
-                <Setter Property="TextTrimming" Value="None"></Setter>
-                <Setter Property="Foreground" Value="{StaticResource SmallButtonTextColor}"></Setter>
-                <Setter Property="FontFamily" Value="Tahoma"></Setter>
-                <Setter Property="FontWeight" Value="Bold"></Setter>
-            </Style>
-
-            <!-- Info style -->
-            <Style x:Key="InfoTabStyle" TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="5"></Setter>
-                <Setter Property="Margin" Value="2"></Setter>
-                <Setter Property="Padding" Value="3"></Setter>
-                <Setter Property="Background" Value="Transparent"></Setter>
-            </Style>
-
-            <Style x:Key="InfoTabLabelStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-                <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                <Setter Property="FontSize" Value="16"></Setter>
-                <Setter Property="TextTrimming" Value="None"></Setter>
-                <Setter Property="Foreground" Value="{StaticResource TextColor}"></Setter>
-                <Setter Property="FontFamily" Value="Tahoma"></Setter>
-                <Setter Property="FontWeight" Value="Bold"></Setter>
-            </Style>
-
-            <!-- Game page styles -->
-            <Style x:Key="BoardBorderStyle" TargetType="{x:Type Border}">
-                <Setter Property="Background" Value="{StaticResource BoardBackgroundColor}"></Setter>
-                <Setter Property="CornerRadius" Value="5"></Setter>
-                <Setter Property="Margin" Value="2"></Setter>
-                <Setter Property="Padding" Value="10,10,10,10"></Setter>
-            </Style>
-            
-            <Style x:Key="CellBorderStyle" TargetType="{x:Type Border}">
-                <Setter Property="Background" Value="{StaticResource CellBackgroundColor}"></Setter>
-                <Setter Property="Width" Value="{DynamicResource CellSize}"></Setter>
-                <Setter Property="Height" Value="{DynamicResource CellSize}"></Setter>
-                <Setter Property="CornerRadius" Value="5"></Setter>
-                <Setter Property="Margin" Value="2"></Setter>
-                <Setter Property="Padding" Value="5"></Setter>
-            </Style>
-
-            <Style x:Key="CellLabelStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-                <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                <Setter Property="TextAlignment" Value="Center"></Setter>
-                <Setter Property="FontSize" Value="28"></Setter>
-                <Setter Property="TextTrimming" Value="None"></Setter>
-                <Setter Property="Foreground" Value="{StaticResource CellTextColor}"></Setter>
-            </Style>
-            
+        
         </ResourceDictionary>
     </Application.Resources>
 </Application>
