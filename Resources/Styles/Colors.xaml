@@ -12,7 +12,8 @@
     <SolidColorBrush x:Key="MenuButtonTextColor" Color="OliveDrab" ></SolidColorBrush>
     <SolidColorBrush x:Key="MenuButtonBorderColor" Color="DarkGreen" ></SolidColorBrush>
 
-    <SolidColorBrush x:Key="TextColor" Color="#403F13" ></SolidColorBrush>
+    <SolidColorBrush x:Key="TextColor" Color="DarkRed" ></SolidColorBrush>
+    <SolidColorBrush x:Key="TextColor2" Color="#403F13" ></SolidColorBrush>
     <SolidColorBrush x:Key="SmallButtonTextColor" Color="#382815" ></SolidColorBrush>
     
     <!-- Cell Colors -->

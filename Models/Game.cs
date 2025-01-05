@@ -16,7 +16,7 @@ namespace Game2048.Models
         
         public const int BoardSizeDefault = 4;
         public readonly int BoardSize;
-        public const int WinValue = 64;
+        public const int WinValue = 2048;
         
         private const int _probabilityOfFour = 90;
         private const int maxIter = 5000;
