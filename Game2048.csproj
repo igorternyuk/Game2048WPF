@@ -20,7 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\DataTemplates\" />
+    <None Remove="Resources\Images\Game2048.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Game2048.png" />
   </ItemGroup>
 
   <ItemGroup>

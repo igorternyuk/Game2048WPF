@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:Game2048.Views.Windows"
         mc:Ignorable="d"
         Title="Game2048" Height="500" Width="500" MinHeight="500" MinWidth="500"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/Images/Game2048.png"
         Background="{StaticResource MenuBackgroudColor}">
     <Frame Source="../Pages/MainMenuPage.xaml" NavigationUIVisibility="Hidden"></Frame>
 
